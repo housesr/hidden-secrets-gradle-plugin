@@ -53,7 +53,7 @@ For more details about the installation check the [plugin's page](https://plugin
 
 Obfuscate and hide your key in your project :
 ```shell
-./gradlew hideSecret -Pkey=yourKeyToObfuscate [-PkeyName=YourSecretKeyName] [-Ppackage=com.your.package]
+./gradlew hideSecret -Pkey=yourKeyToObfuscate [-PkeyName=YourSecretKeyName] [-Ppackage=com.your.package] [-PcertKey=xxxxxxxdddddddddxxxxxxdddddddd]
 ```
 The parameter `keyName` is optional, by default the key name is randomly generated.
 The parameter `package` is optional, by default the `applicationId` of your project will be used.
@@ -77,11 +77,11 @@ android {
 👏 Now you can get your secret key from Java/Kotlin code by calling :
 ```kotlin
 // Kotlin
-val key = Secrets().getYourSecretKeyName(packageName)
+val key = Secrets().getYourSecretKeyName(Certificate().getCertificate(context))
 ```
 ```Java
 // Java
-final String key = new Secrets().getYourSecretKeyName(getPackageName());
+final String key = new Secrets().getYourSecretKeyName(new Certificate().getCertificate(context))
 ```
 
 # 4 - (Optional) Improve your key security
@@ -116,7 +116,7 @@ void customDecode(char *str) {
 
 This method is automatically called and will revert the rot13 applied on your key when you will call :
 ```kotlin
-Secrets().getYourSecretKeyName(packageName)
+Secrets().getYourSecretKeyName(certKey)
 ```
 
 # Going further
