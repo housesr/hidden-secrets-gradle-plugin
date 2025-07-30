@@ -25,14 +25,14 @@ class Certificate {
     private fun getCertificateSHA1Fingerprint(context: Context): String {
         val pm: PackageManager = context.packageManager
         val packageName: String = context.packageName
-        val flags = PackageManager.GET_SIGNATURES
+        val flags = PackageManager.GET_SIGNING_CERTIFICATES
         var packageInfo: PackageInfo? = null
         try {
             packageInfo = pm.getPackageInfo(packageName, flags)
         } catch (e: NameNotFoundException) {
             e.printStackTrace()
         }
-        val signatures: Array<Signature> = packageInfo!!.signatures
+        val signatures: Array<Signature> = packageInfo!!.signingInfo!!.apkContentsSigners
         val cert: ByteArray = signatures[0].toByteArray()
         val input: InputStream = ByteArrayInputStream(cert)
         var cf: CertificateFactory? = null
