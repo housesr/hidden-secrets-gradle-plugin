@@ -18,3 +18,5 @@ add_library( # Specifies the name of the library.
 
              # Provides a relative path to your source file(s).
              secrets.cpp )
+
+target_link_options(secrets PRIVATE "-Wl,-z,max-page-size=16384")
